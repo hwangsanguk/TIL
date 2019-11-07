@@ -5,3 +5,6 @@ git remote add origin(이름) https://github.com/hwangsanguk/TIL.git=>
 git push origin master
 
 주의 사항 : 최상위 폴더에서 git init을 했으면 하위 폴더에서 git init 을 하면 오류가 발생함
+
+git clone (클론주소)
+
