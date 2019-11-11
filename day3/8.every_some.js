@@ -45,10 +45,10 @@ const computers = [
   ];
   // submit의 유무
   // every : 모두가 submit 했는가?
-  // console.log(users.every(user => user.submit === true))
+//   console.log(users.every(user => user.submit === true))
   
   // some : 한명이라도 submit 했는가?
-  // console.log(users.some(user => user.submit === true))
+//   console.log(users.some(user => user.submit === true))
   
   
   // 실습2
