@@ -12,7 +12,7 @@ class App extends React.Component{
     // constructor
     // babel 이 알아서 해줌
     state = {
-        comment:[],
+        comments:[],
         number: 0,
         information: faker.lorem.paragraph()
     };
@@ -25,7 +25,7 @@ class App extends React.Component{
             avatar : faker.image.avatar(),
         }
         this.setState({
-            comments: [newComment, ...this.state.comment]
+            comments: [newComment, ...this.state.comments]
         });
 
     };
@@ -34,12 +34,19 @@ class App extends React.Component{
         });
 
     };
+    handleMinus = () =>{
+        this.setState({ number: this.state.number -1})
+    }
+    handleReset = ()=>{
+        this.setState({number: 0})
+    }
     render(){
         return(
             <>
                 <span>{this.state.number}</span>
                 <button onClick={this.handlePlus}>plus</button>
-
+                <button onClick={this.handleMinus}>Minus</button>
+                <button onClick={this.handleReset}>0</button>
                 <Segment>
                     <div className="ui icon header">
                     <i className="pdf file outline icon">
@@ -53,7 +60,18 @@ class App extends React.Component{
                     <p>{this.state.information}</p>
                 </Segment>
                 <Message header="회원 약관 변경" body="약관이 변경되었습니다" />
-
+                <div className="ui container">
+                    <button className="ui primary button" onClick={this.handleAddComment}>댓글 작성</button>
+                <ApprovalCard><h4>저는 칼퇴하겠습니다. 금요일이니까요.</h4>
+                
+                </ApprovalCard>
+                {this.state.comments.map(comment => {
+                    return (
+                        <ApprovalCard>
+                            <CommentDetail {...comment}/>
+                        </ApprovalCard>
+                    )})};
+                </div>
             </>
         )
     };
