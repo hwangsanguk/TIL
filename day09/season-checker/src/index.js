@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-
+import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner'
 //함수형 컴포넌트
 // const App = ()=>{
 //     window.navigator.geolocation.getCurrentPosition(
@@ -11,21 +12,6 @@ import ReactDom from 'react-dom';
 //         <div>계절 확인</div>
 //     );
 // };
-
-//위도를 넘겨 준다 => props 사용
-
-//SeasonDisplay 사용해서 위도를 출력
-
-const SeasonDisplay = (props) =>{
-    return (
-        //JSX문법
-        <div>
-
-        </div>
-    )
-
-}
-
 
 //클래스형 컴포넌트
 //1. JS class 를 사용
@@ -44,14 +30,33 @@ class App extends React.Component {
         this.state = {
             lat: null,
             errorMessage: ''
-        }
+        };
     };
     componentDidMount(){
         console.log("컴포넌트가 화면에 렌더링이 끝났따")
-    }
+    };
     componentDidUpdate(){
         console.log('컴포넌트가 업데이트가 되고, 리렌더링이 끝났다')
-    }
+    };
+    conditionalRender(){
+        if (this.state.lat && !this.state.errorMessage){
+            return(
+                <div>
+                    <SeasonDisplay lat= {this.state.lat}/>
+                </div>
+            )
+        };
+        //거절
+        if(!this.state.lat && this.state.errorMessage){
+            return(
+                <div>
+                    {this.state.errorMessage}
+                    사용자 위치 정보가 필요합니다 
+                </div>
+            )
+        }
+    };
+
     render() {
         window.navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -66,26 +71,19 @@ class App extends React.Component {
         //조건부 렌더링
 
         //허용
-        if (this.state.lat && !this.state.errorMessage){
-            return(
-                <div>
-                    위도: {this.state.lat}
-                </div>
-            )
-        };
-        //거절
-        if(!this.state.lat && this.state.errorMessage){
-            return(
-                <div>
-                    {this.state.errorMessage}
-                    사용자 위치 정보가 필요합니다 
-                </div>
-            )
-        }
+      
         return (
             <div>
-                사용자 위치 정보 동의해주세요
-            </div>);
+                <Spinner />
+            </div>
+        );
+    };
+    render () {
+        return (
+            <div>
+                {this.conditionalRender()}
+            </div>
+        )
     }
 }
 
